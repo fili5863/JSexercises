@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Actors</h1>
+    <nav>
+      <button data-movie="all" class="valgt">all</button>
+      <button data-movie="Fight Club">Fight Club</button>
+      <button data-movie="Inception">Inception</button>
+      <button data-movie="Goodfellas">Goodfellas</button>
+      <button data-movie="Pulp Fiction">Pulp Fiction</button>
+    </nav>
+    <main></main>
+    <template>
+      <article>
+        <h2 class="fullname"></h2>
+        <h3 class="movie"></h3>
+      </article>
+    </template>
+    <section id="popUp">
+      <article>
+        <h2 class="fullname"></h2>
+        <h3 class="movie"></h3>
+      </article>
+    </section>
+    <script>
+      // runs the "start" function when the DOM is loaded
+      document.addEventListener("DOMContentLoaded", start);
+      let actors;
+      const fil = "actors.json";
+      let filter = "all";
+      const header = document.querySelector("h1");
+
+      // adds the function to filter the actorlist on click
+      function start() {
+        const filterKnapper = document.querySelectorAll("nav button");
+
+        filterKnapper.forEach(knap => knap.addEventListener("click", filtrerActors));
+        hentData();
+      }
+      // the function that filters the actors
+      function filtrerActors() {
+        filter = this.dataset.movie;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
+        vis(actors);
+        header.textContent = this.textContent;
+      }
+      // this fetches the data from the JSON file
+      async function hentData(fil) {
+        const resultat = await fetch(fil);
+        actors = await resultat.json();
+        console.log("actors", actors);
+        vis(actors);
+      }
+      //
+      function vis(actors) {
+        const container = document.querySelector("main");
+        const skabelon = document.querySelector("template");
+        container.textContent = "";
+        actors.forEach(actor => {
+          console.log("movie", actor.movie);
+          if (filter == actor.movie || filter == "all") {
+            const clone = skabelon.cloneNode(true).content;
+            clone.querySelector(".fullname").textContent = actor.fullname;
+            // clone.querySelector(".movie").textContent = actor.movie;
+            clone.querySelector("article").addEventListener("click", () => visActor(actor));
+            container.appendChild(clone);
+          }
+        });
+      }
+
+      function visActor(actor) {
+        console.log(actor);
+        const popUp = document.querySelector("#popUp");
+        popUp.style.display = "flex";
+        popUp.querySelector(".fullname").textContent = actor.fullname;
+        popUp.querySelector(".movie").textContent = actor.movie;
+        popUp.addEventListener("click", () => (popUp.style.display = "none"));
+      }
+
+      hentData(fil);
+    </script>
+  </body>
+</html>
