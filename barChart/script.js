@@ -1,44 +1,22 @@
 "use strict";
 
-// 14, 25, 20, 40, 8, 12, 29, 24, 35, 26, 5, 31, 18, 32, 30, 11, 10, 6, 21, 23, 7, 17, 39, 13, 16, 36, 34, 3, 1, 27, 22, 9, 38, 19, 37, 3, 15, 2, 28, 4,
-
 window.addEventListener("load", init);
 
-// den falske øver her
-const model = [
-  14, 25, 20, 40, 8, 12, 29, 24, 35, 26, 5, 31, 18, 32, 30, 11, 10, 6, 21, 23, 7, 17, 39, 13, 16,
-  36, 34, 3, 1, 27, 22, 9, 38, 19, 37, 3, 15, 2, 28, 4,
-];
-
-// function init() {
-//   console.log("init");
-//   loop();
-// }
-
-// function loop() {
-//   modifyModel();
-//   displayData();
-
-//   setTimeout(loop, 1000);
-// }
-
-// function getCustomerNumbers() {
-//   return Math.floor(Math.random() * 32);
-// }
-
-// function displayData() {
-//   for (let i = 0; i < model.length; i++) {
-//     const size = model[i];
-//     const bar = document.querySelectorAll(".bar")[i];
-
-//     /* sets the height of the bar from size */
-//     bar.style.height = size + "px";
-//   }
-// }
+const model = [];
 
 function init() {
   console.log("init");
+  loadComponents();
   loop();
+}
+
+function loadComponents() {
+  /* Genererer 40 tal fra start, så ikke chartet står tomt */
+  for (let i = 0; i < 40; i++) {
+    getCustomerNumbers();
+    const startCostumerNumbers = getCustomerNumbers();
+    model.push(startCostumerNumbers);
+  }
 }
 
 function loop() {
@@ -48,10 +26,8 @@ function loop() {
   setTimeout(loop, 1000);
 }
 
-function getCustomerNumbers() {
-  return Math.floor(Math.random() * 32);
-}
 function displayData() {
+  /* this is where the magic happens. Den her assigner værdierne fra arrayet ind i ".bar"'ene */
   for (let i = 0; i < model.length; i++) {
     const size = model[i];
     const bar = document.querySelectorAll(".bar")[i];
@@ -62,44 +38,18 @@ function displayData() {
 }
 function modifyModel() {
   const queueSize = getCustomerNumbers();
+  /* hvis der er mindre end 40 numre, så tilføjer den et bagerst */
   if (model.length <= 39) {
     model.push(queueSize);
   } else {
+    /* hvis der er over 40 numre, fjerner den det forreste og tilføjer igen et bagerst */
     model.shift();
     model.push(queueSize);
   }
   console.log(queueSize);
 }
 
-////////////////////////////////////
-
-// window.addEventListener("load", init);
-
-// function init() {
-//   loop();
-// }
-
-// function loop() {
-//   const queueSize = getCustomerNumbers();
-
-//   if (model.length <= 39) {
-//     model.push(queueSize);
-//   } else {
-//     model.shift();
-//     model.push(queueSize);
-//   }
-
-//   //   model.shift();
-//   //   model.push(queueSize);
-//   setTimeout(modifyModel, 1000);
-//   console.log(model);
-// }
-
-// function modifyModel() {
-//   loop();
-// }
-
-// Controller
-// function getCustomerNumbers() {
-//     return Math.floor(Math.random() * 32);
-//   }
+function getCustomerNumbers() {
+  /* genererer et random nummer og laver "return" */
+  return Math.floor(Math.random() * 32);
+}
