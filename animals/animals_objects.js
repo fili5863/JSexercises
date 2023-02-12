@@ -38,17 +38,26 @@ function prepareObjects(jsonData) {
 
     const animal = Object.create(Animal);
 
-    animal.name = jsonObject.fullname.substring(0, jsonObject.fullname.indexOf(" "));
-    animal.type = jsonObject.fullname.substring(jsonObject.fullname.lastIndexOf(" ") + 1);
-    animal.desc = jsonObject.fullname.substring(
-      jsonObject.fullname.indexOf("the") + 4,
-      jsonObject.fullname.lastIndexOf(" ")
-    );
-    animal.age = jsonObject.age;
+    // animal.name = jsonObject.fullname.substring(0, jsonObject.fullname.indexOf(" "));
+    // animal.type = jsonObject.fullname.substring(jsonObject.fullname.lastIndexOf(" ") + 1);
+    // animal.desc = jsonObject.fullname.substring(
+    //   jsonObject.fullname.indexOf("the") + 4,
+    //   jsonObject.fullname.lastIndexOf(" ")
+    // );
+    // animal.age = jsonObject.age;
 
-    console.log(animal.name);
-    console.log(animal.type);
-    console.log(animal.desc);
+    // console.log(animal.name);
+    // console.log(animal.type);
+    // console.log(animal.desc);
+
+    /* Klaus's løsning */
+    /* splitter teksten op i arrays */
+    const text = jsonObject.fullname.split(" ");
+
+    animal.age = jsonObject.age;
+    animal.name = text[0];
+    animal.type = text[3];
+    animal.desc = text[2];
 
     // console.log(Animal);
     // TODO: MISSING CODE HERE !!!
