@@ -145,8 +145,13 @@ function prepareObjects(jsonData) {
     else if (lastnameL.includes("patil")) {
       imageSrc.src = "images/" + lastnameL + "_" + student.firstName.toLowerCase() + ".png";
     }
+    // Removes the name in front of - for and only displays the last part
+    else if (lastnameL.includes("-")) {
+      imageSrc.src =
+        "images/" + lastnameL.substring(lastnameL.indexOf("-") + 1) + "_" + firstnameL + ".png";
+    }
     // Pushes the objects into the array
-    else allStudents.push(student);
+    allStudents.push(student);
     console.log(allStudents);
   });
 
@@ -170,7 +175,7 @@ function displayStudent(student) {
   clone.querySelector("[data-field=middleName]").textContent = student.middleName;
   clone.querySelector("[data-field=lastName]").textContent = student.lastName;
   clone.querySelector("[data-field=nickName]").textContent = student.nickName;
-  clone.querySelector("#studentImage").src = student.image;
+  clone.querySelector("#studentImage").src = student.image.src;
   clone.querySelector("[data-field=house]").textContent = student.house;
 
   // append clone to list
