@@ -2,16 +2,38 @@
 
 window.addEventListener("DOMContentLoaded", start);
 
+const inputColor = document.querySelector("input");
+let hex, h, s, l, r, g, b;
+
 function start() {
   addEventListeners();
 }
 
 function addEventListeners() {
-  document.querySelector("input").addEventListener("input", colorChange);
+  inputColor.addEventListener("input", colorChange);
 }
 
 function colorChange() {
   console.log(this.value);
+  hex = inputColor.value;
+
+  HEXtoRGB(hex);
+  RGBtoHSL(r, g, b);
+  displayColors(hex, r, g, b, h, s, l);
+}
+
+function displayColors(hex, r, g, b, h, s, l) {
+  document.querySelector("#colorDisplay").style.backgroundColor = hex;
+  document.querySelector("#hex").textContent = `${hex}`;
+  document.querySelector("#rgb").textContent = `(${r}, ${g}, ${b})`;
+  document.querySelector("#hsl").textContent = `(${h.toFixed(0)}, ${s.toFixed(0)}%, ${l.toFixed(
+    0
+  )}%)`;
+}
+function HEXtoRGB(hex) {
+  r = parseInt(hex.substring(1, 3), 16);
+  g = parseInt(hex.substring(3, 5), 16);
+  b = parseInt(hex.substring(5, 7), 16);
 }
 
 RGBtoHSL(36, 130, 80);
@@ -20,8 +42,6 @@ function RGBtoHSL(r, g, b) {
   r /= 255;
   g /= 255;
   b /= 255;
-
-  let h, s, l;
 
   const min = Math.min(r, g, b);
   const max = Math.max(r, g, b);
@@ -50,6 +70,4 @@ function RGBtoHSL(r, g, b) {
   // multiply s and l by 100 to get the value in percent, rather than [0,1]
   s *= 100;
   l *= 100;
-
-  console.log("hsl(%f,%f%,%f%)", h, s, l);
 }
