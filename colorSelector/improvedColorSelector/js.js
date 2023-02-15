@@ -25,9 +25,24 @@ function showColor() {
 }
 
 function displayColors(rgb, toHex, css, hsl) {
+  boxColorChange(css);
+  HEXvalChange(toHex);
+  RGBvalChange(rgb);
+  HSLvalChange(hsl);
+}
+
+function boxColorChange(css) {
   document.querySelector("#colorDisplay").style.backgroundColor = css;
+}
+
+function HEXvalChange(toHex) {
   document.querySelector("#hex").textContent = `${toHex}`;
+}
+function RGBvalChange(rgb) {
   document.querySelector("#rgb").textContent = `(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+}
+
+function HSLvalChange(hsl) {
   document.querySelector("#hsl").textContent = `(${hsl.h.toFixed(0)}, ${hsl.s.toFixed(
     0
   )}%, ${hsl.l.toFixed(0)}%)`;
