@@ -1,16 +1,5 @@
 "use strict";
 
-// window.addEventListener("DOMContentLoaded", init);
-// let picker;
-// function init() {
-//   picker = document.querySelector("#colorPicker");
-//   picker.addEventListener("input", onInput);
-// }
-
-// function onInput() {
-//   console.log(this.value);
-// }
-
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
