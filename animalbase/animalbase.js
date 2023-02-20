@@ -24,6 +24,9 @@ function registerButtons() {
   document
     .querySelectorAll("[data-action='filter']")
     .forEach(button => button.addEventListener("click", selectFilter));
+  document
+    .querySelectorAll("[data-action='sort']")
+    .forEach(button => button.addEventListener("click", selectSort));
 }
 
 async function loadJSON() {
@@ -80,6 +83,39 @@ function isDog(animal) {
   return animal.type === "dog";
 }
 
+function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  console.log(`User selected ${sortBy}`);
+  sortList(sortBy);
+}
+
+function sortList(sortBy) {
+  let sortedList = allAnimals;
+
+  if (sortBy === "name") {
+    sortedList = sortedList.sort(sortByName);
+  } else if (sortBy === "type") {
+    sortedList = sortedList.sort(sortByType);
+  }
+  displayList(sortedList);
+}
+
+function sortByName(animalA, animalB) {
+  if (animalA.name < animalB.name) {
+    return -1;
+  } else {
+    return 1;
+  }
+}
+
+function sortByType(animalA, animalB) {
+  if (animalA.type < animalB.type) {
+    return -1;
+  } else {
+    return 1;
+  }
+}
+
 function displayList(animals) {
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
@@ -101,27 +137,3 @@ function displayAnimal(animal) {
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
-
-//   isCat();
-//   isDog();
-//   console.log("IS THIS A CAT?", isCat());
-//   console.log("IS THIS A DOG?", isDog());
-// }
-
-// function isCat() {
-//   if (animalf === "cat") {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-
-// function isDog() {
-//   if (animalf === "dog") {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-
-// console.log(displayAnimal);
