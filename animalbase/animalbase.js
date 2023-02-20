@@ -20,6 +20,7 @@ function start() {
   loadJSON();
 }
 
+// Adds event listeners to the sort and filter buttons
 function registerButtons() {
   document
     .querySelectorAll("[data-action='filter']")
@@ -29,6 +30,7 @@ function registerButtons() {
     .forEach(button => button.addEventListener("click", selectSort));
 }
 
+// Loads the data from the JSON file
 async function loadJSON() {
   const response = await fetch("animals.json");
   const jsonData = await response.json();
@@ -64,9 +66,8 @@ function selectFilter(event) {
 }
 
 function filterList(filterBy) {
-  // create a filtered list of only cats
   let filteredList = allAnimals;
-
+  // Runs the functions if the button is refering to cats or dogs
   if (filterBy === "cat") {
     filteredList = allAnimals.filter(isCat);
   } else if (filterBy === "dog") {
@@ -74,46 +75,50 @@ function filterList(filterBy) {
   }
   displayList(filteredList);
 }
-
+// Filter only cats
 function isCat(animal) {
   return animal.type === "cat";
 }
-
+// Filter only dogs
 function isDog(animal) {
   return animal.type === "dog";
 }
-
+// Runs the function when you click on the sorting buttons
 function selectSort(event) {
+  // Adds a variable for the data-action
   const sortBy = event.target.dataset.sort;
-  console.log(`User selected ${sortBy}`);
-  sortList(sortBy);
+  const sortDir = event.target.dataset.sortDirection;
+
+  // toggles the sorting direction
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else {
+    event.target.dataset.sortDirection = "asc";
+  }
+  console.log(`User selected ${sortBy} - ${sortDir}`);
+  sortList(sortBy, sortDir);
 }
 
-function sortList(sortBy) {
+function sortList(sortBy, sortDir) {
   let sortedList = allAnimals;
+  // Switches between asc and desc sorting
+  let direction = 1;
+  if (sortDir === "desc") {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
+  // Sorts the array with the sortByProperty function
+  sortedList = sortedList.sort(sortByProperty);
 
-  if (sortBy === "name") {
-    sortedList = sortedList.sort(sortByName);
-  } else if (sortBy === "type") {
-    sortedList = sortedList.sort(sortByType);
+  function sortByProperty(animalA, animalB) {
+    if (animalA[sortBy] < animalB[sortBy]) {
+      return -1 * direction;
+    } else {
+      return 1 * direction;
+    }
   }
   displayList(sortedList);
-}
-
-function sortByName(animalA, animalB) {
-  if (animalA.name < animalB.name) {
-    return -1;
-  } else {
-    return 1;
-  }
-}
-
-function sortByType(animalA, animalB) {
-  if (animalA.type < animalB.type) {
-    return -1;
-  } else {
-    return 1;
-  }
 }
 
 function displayList(animals) {
