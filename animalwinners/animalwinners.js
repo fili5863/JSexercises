@@ -77,7 +77,7 @@ function displayAnimal(animal) {
   if (animal.winner === true) {
     clone.querySelector("[data-field=winner]").textContent = "🏆";
   } else {
-    clone.querySelector("[data-field=star]").textContent = "o";
+    clone.querySelector("[data-field=winner]").textContent = "🏆";
   }
   // TODO: Display star
 
