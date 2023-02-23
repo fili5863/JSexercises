@@ -1,0 +1,27 @@
+#list {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+tbody {
+  max-width: 1500px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-gap: 1em;
+  padding-top: 200px;
+  margin: 0 auto;
+}
+
+tbody tr {
+  width: 500px;
+  padding: 0.5em;
+  border: 3px solid orange;
+  border-radius: 1em;
+  background-color: white;
+}
+
+body h1 {
+  text-align: center;
+}

@@ -15,7 +15,7 @@
 }
 
 #sorting th.sortby[data-sort-direction="desc"]::after {
-  content: "⇑"
+  content: "⇑";
 }
 
 #list {
@@ -24,7 +24,6 @@
 
 #list tbody tr td {
   padding: 4px;
-  
 }
 
 #list tbody tr:nth-child(odd) td {
@@ -45,18 +44,54 @@
 }
 
 /****** WINNER ******/
-[data-field="winner"][data-winner="false"] {
-    filter: grayscale(100%);  
-    cursor: pointer;
+td[data-field="winner"]::after {
+  content: "🏆";
+}
+td[data-field="winner"][data-winner="false"]::after {
+  filter: grayscale(1);
 }
 
 /******** DIALOG styling **********/
 
-.dialog {
+.modal.hide {
   display: none;
 }
 
-.dialog.show {
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dialog {
+  box-shadow: 1px 1px 10px #333;
+  border-radius: 12px;
+  padding: 2em;
+  background-color: #ffe6cb;
+  position: relative;
+}
+button.closebutton {
+  position: absolute;
+  right: -1em;
+  top: -1em;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+}
+.dialog h1 {
+  margin-top: 0;
+}
+
+/* .dialog {
+  display: none;
+}
+
+.dialogshow {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -65,7 +100,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0,.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .dialogcontent {
@@ -81,7 +116,7 @@
 }
 
 .dialog h2 {
-  margin: .5em 0;
+  margin: 0.5em 0;
   font-size: 110%;
   font-weight: lighter;
 }
@@ -100,4 +135,4 @@
 
 .dialog .closebutton:hover {
   color: black;
-}
+} */
